@@ -5,11 +5,11 @@ You can get the IP address of your Ingress controller by passing this command:
 
 Make sure your domain points to the IP address of your Ingress controller (1.2.3.4).
 {{ end }}
-To interract with your Epinio installation, you have to download the latest epinio binary [here](https://github.com/epinio/epinio/releases).
+To interract with your Epinio installation, you have to download the latest epinio binary https://github.com/epinio/epinio/releases.
 
 Update the api location and credentials with:
 `epinio config update`
 
 Then, you have to run `epinio namespace create workspace`
 
-For more information about Epinio, feel free to checkout https://epinio.io/ and https://docs.epinio.io/
+For more information about Epinio, feel free to checkout https://epinio.io/ and https://docs.epinio.io/.
