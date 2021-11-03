@@ -33,3 +33,37 @@ spec:
           - /epinio
         args:
           - install
+          - "--email-address={{ .Values.email | default "epinio@suse.com"}}"
+          - "--tls-issuer={{ .Values.tlsIssuer | default "epinio-ca" }}"
+          - "--use-internal-registry-node-port={{ .Values.internalRegistryNodePort | default "true" }}"
+          - "--skip-default-namespace"
+{{- if .Values.password }}
+          - "--password={{ .Values.password }}"
+{{ end }}
+{{- if .Values.user }}
+          - "--user={{ .Values.user }}"
+{{ end }}
+{{- if .Values.skipCertManager }}
+          - "--skip-cert-manager"
+{{ end }}
+{{- if .Values.skipLinkerd }}
+          - "--skip-linkerd"
+{{ end }}
+{{- if .Values.skipTraefik }}
+          - "--skip-traefik"
+{{ end }}
+{{- if .Values.domain }}
+          - "--system-domain={{ .Values.domain }}"
+{{ end }}
+{{- if .Values.s3Endpoint }}
+          - "--s3-endpoint={{ .Values.s3Endpoint }}"
+          - "--s3-access-key-id={{ .Values.s3AccessKeyId }}"
+          - "--s3-secret-access-key={{ .Values.s3SecretAccessKey }}"
+          - "--s3-bucket={{ .Values.s3Bucket }}"
+{{ end }}
+{{- if .Values.s3Location }}
+          - "--s3-location={{ .Values.s3Location }}"
+{{ end }}
+{{- if .Values.s3UseSSL }}
+          - "--s3-ssl={{ .Values.s3UseSSL }}"
+{{ end }}
