@@ -1,5 +1,4 @@
 # See https://github.com/helm/chart-testing#configuration
-# Test CI
 remote: origin
 target-branch: main
 chart-dirs:
