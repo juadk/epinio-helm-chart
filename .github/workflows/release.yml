@@ -25,7 +25,7 @@ jobs:
         run: |
           tag=${{ github.event.client_payload.ref }}
           sed -i "s/^appVersion:.*$/appVersion: $tag/" chart/epinio/Chart.yaml
-        if: github.event == 'repository_dispatch'
+        if: github.event_name == 'repository_dispatch'
           
       - name: Commit the new appVersion
         uses: stefanzweifel/git-auto-commit-action@v4
