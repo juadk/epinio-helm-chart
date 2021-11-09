@@ -1,6 +1,8 @@
 name: Lint and Test Charts
 
-on: pull_request
+on:
+  pull_request:
+  workflow_dispatch:
 
 jobs:
   lint-test:
@@ -38,9 +40,12 @@ jobs:
       - name: Run chart-testing (lint)
         run: ct lint --config ct.yaml
 
-      - name: Create kind cluster
-        uses: helm/kind-action@v1.1.0
-        if: steps.list-changed.outputs.changed == 'true'
+      - name: Set up k3d cluster
+        uses: nolar/setup-k3d-k3s@v1
+          with:
+            version: v1.22
+            github-token: ${{ secrets.GITHUB_TOKEN }}
+              #        if: steps.list-changed.outputs.changed == 'true'
 
       - name: Run chart-testing (install)
-        run: ct install --config ct.yaml
+        run: ct install --config ct.yaml --charts chart/epinio
