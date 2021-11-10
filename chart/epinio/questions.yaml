@@ -1,25 +1,23 @@
-categories:
-- paas
 questions:
 - variable: email
-default: "epinio@suse.com"
-description: "Email to use for getting notifications"
-type: strings
-required: false
+  default: "epinio@suse.com"
+  description: "Email to use for getting notifications"
+  type: strings
+  required: false
 - variable: tlsIssuer
-default: "epinio-ca"
-description: "tls issuer to use"
-type: strings
-required: false
+  default: "epinio-ca"
+  description: "tls issuer to use"
+  type: strings
+  required: false
 - variable: user
-description: "API user"
-type: strings
-required: false
+  description: "API user"
+  type: strings
+  required: false
 - variable: password
-description: "API password"
-type: strings
-required: false
+  description: "API password"
+  type: strings
+  required: false
 - variable: domain
-description: "Domain for the application"
-type: strings
-required: false
+  description: "Domain for the application"
+  type: strings
+  required: false
