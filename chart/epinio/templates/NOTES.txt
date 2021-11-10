@@ -13,3 +13,4 @@ Update the api location and credentials with:
 Then, you have to run `epinio namespace create workspace`
 
 For more information about Epinio, feel free to checkout https://epinio.io/ and https://docs.epinio.io/.
+ test
