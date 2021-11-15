@@ -41,6 +41,11 @@ questions:
   type: strings
   required: false
   group: "General settings"
+- variable: forceKubeInternalRegistryTls
+  label: Force tls for internal registry
+  required: false
+  type: boolean
+  group: "General settings"
 - variable: skipCertManager
   label: Skip Cert Manager installation
   required: false
@@ -84,12 +89,6 @@ questions:
     description: "Namespace of the external registry where you have push access"
     type: strings
     required: false
-- variable: forceKubeInternalRegistryTls
-  label: Force tls for internal registry
-  description: "Force TLS for application pulled by kubernetes"
-  required: false
-  type: boolean
-  group: "General settings"
 - variable: useS3Storage
   default: "false"
   label: Use an external s3 storage
