@@ -26,7 +26,7 @@ questions:
 - variable: password
   label: API password
   description: "The password for authenticating all API requests"
-  type: strings
+  type: password
   required: false
   group: "General settings"
 - variable: domain
@@ -82,7 +82,7 @@ questions:
   - variable: externalRegistryPassword
     label: External registry password
     description: "Password to authenticate to the external registry"
-    type: strings
+    type: password
     required: false
   - variable: externalRegistryNamespace
     label: External registry namespace
