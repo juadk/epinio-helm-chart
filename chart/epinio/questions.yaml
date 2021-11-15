@@ -1,23 +1,89 @@
 questions:
 - variable: email
+  label: Email
   default: "epinio@suse.com"
-  description: "Email to use for getting notifications"
   type: strings
   required: false
 - variable: tlsIssuer
+  label: Tls issuer
   default: "epinio-ca"
-  description: "tls issuer to use"
   type: strings
   required: false
+  options:
+    - "epinio-ca"
+    - "selfsigned-issuer"
+    - "letsencrypt-production"
 - variable: user
-  description: "API user"
+  label: API username
   type: strings
   required: false
 - variable: password
-  description: "API password"
+  label: API password
   type: strings
   required: false
 - variable: domain
+  label: Domain
   description: "Domain for the application"
   type: strings
   required: false
+- variable: accessControlAllowOrigin
+  label: Access control allow organization
+  description: "Domain allowed to access the API. Comma-separated."
+  type: strings
+  required: false
+- variable: externalRegistryUrl
+  label: External registry url
+  type: strings
+  required: false
+- variable: externalRegistryUsername
+  label: External registry username
+  type: strings
+  required: false
+- variable: externalRegistryPassword
+  label: External registry password
+  type: strings
+  required: false
+- variable: externalRegistryNamespace
+  label: External registry namespace
+  type: strings
+  required: false
+- variable: forceKubeInternalRegistryTls
+  label: Force tls for internal registry
+  required: false
+  type: boolean
+- variable: s3Endpoint
+  label: S3 s3Endpoint
+  type: strings
+  required: false
+- variable: s3AccessKeyId
+  label: S3 access key id
+  type: strings
+  required: false
+- variable: s3SecretAccessKey
+  label: S3 access key secret
+  type: strings
+  required: false
+- variable: s3Bucket
+  label: S3 Bucket
+  type: strings
+  required: false
+- variable: s3Location
+  label: S3 location
+  type: strings
+  required: false
+- variable: s3UseSSL
+  label: S3 use SSL
+  type: boolean
+  required: false
+- variable: skipCertManager
+  label: Skip Cert Manager installation
+  required: false
+  type: boolean
+- variable: skipLinkerd
+  label: Skip Linkerd installation
+  required: false
+  type: boolean
+- variable: skipTraefik
+  label: Skip Traefik installation
+  required: false
+  type: boolean
