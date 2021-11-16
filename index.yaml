@@ -3,6 +3,25 @@ entries:
   epinio:
   - apiVersion: v1
     appVersion: v0.1.6
+    created: "2021-11-16T10:51:37.185225937Z"
+    description: From app to URL in one command
+    digest: 9d29225094270346718084e3f679ef4321220a765ee4896463cf2cf684e8be75
+    home: https://github.com/epinio/epinio
+    icon: https://raw.githubusercontent.com/epinio/epinio-helm-chart/main/assets/epinio.png
+    keywords:
+    - epinio
+    - paas
+    maintainers:
+    - email: team@epinio.io
+      name: SUSE
+    name: epinio
+    sources:
+    - https://github.com/epinio/epinio
+    urls:
+    - https://github.com/juadk/epinio-helm-chart/releases/download/epinio-0.1.24/epinio-0.1.24.tgz
+    version: 0.1.24
+  - apiVersion: v1
+    appVersion: v0.1.6
     created: "2021-11-15T22:04:14.334521833Z"
     description: From app to URL in one command
     digest: 5b678472c5135a8217763dcd015f9bf530669cdb2eb980a09fd1b0d1bc88f837
@@ -566,4 +585,4 @@ entries:
     urls:
     - https://github.com/juadk/epinio-helm-chart/releases/download/epinio-0.0.3/epinio-0.0.3.tgz
     version: 0.0.3
-generated: "2021-11-15T22:04:14.334779038Z"
+generated: "2021-11-16T10:51:37.185539435Z"
