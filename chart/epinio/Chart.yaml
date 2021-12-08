@@ -1,0 +1,15 @@
+apiVersion: v1
+name: epinio
+version: "0.2.0"
+appVersion: "v0.3.0"
+description: The Epinio component (without dependencies)
+home: https://github.com/epinio/epinio
+icon: https://raw.githubusercontent.com/epinio/epinio-helm-chart/main/assets/epinio.png
+keywords:
+- epinio
+- paas
+sources:
+- https://github.com/epinio/epinio
+maintainers:
+- name: SUSE
+  email: team@epinio.io
