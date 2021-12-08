@@ -22,7 +22,7 @@ jobs:
           version: v3.3.0
 
       - name: Run chart-testing (lint)
-        run: ct lint --config ct.yaml
+        run: ct lint --config ct/ct.yaml
 
   installation-test:
     needs:
@@ -42,10 +42,10 @@ jobs:
       - name: Run chart-testing (list-changed)
         id: list-changed
         run: |
-          changed=$(ct list-changed --config ct.yaml)
+          changed=$(ct list-changed --config ct/ct.yaml)
           if [[ -n "$changed" ]]; then
             echo "::set-output name=changed::true"
-
+          fi
       - name: Set up k3d cluster
         uses: nolar/setup-k3d-k3s@v1
         with:
@@ -54,7 +54,7 @@ jobs:
         if: steps.list-changed.outputs.changed == 'true'
 
       - name: Run chart-testing (install)
-        run: ct install --config ct.yaml
+        run: ct install --config ct/ct-install.yaml
 
   release:
     needs:
