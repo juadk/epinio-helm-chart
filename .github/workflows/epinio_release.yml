@@ -1,0 +1,83 @@
+name: Epinio release
+
+on:
+  pull_request:
+    types:
+      - labeled
+  workflow_dispatch:
+
+jobs:
+  lint-test:
+    if: github.event.label.name == 'epinio-release'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Set up chart-testing
+        uses: helm/chart-testing-action@v2.0.1
+        with:
+          version: v3.3.0
+
+      - name: Run chart-testing (lint)
+        run: ct lint --config ct.yaml
+
+  installation-test:
+    needs:
+      - lint-test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Set up chart-testing
+        uses: helm/chart-testing-action@v2.0.1
+        with:
+          version: v3.3.0
+
+      - name: Run chart-testing (list-changed)
+        id: list-changed
+        run: |
+          changed=$(ct list-changed --config ct.yaml)
+          if [[ -n "$changed" ]]; then
+            echo "::set-output name=changed::true"
+
+      - name: Set up k3d cluster
+        uses: nolar/setup-k3d-k3s@v1
+        with:
+          version: v1.22
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+        if: steps.list-changed.outputs.changed == 'true'
+
+      - name: Run chart-testing (install)
+        run: ct install --config ct.yaml
+
+  release:
+    needs:
+      - installation-test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+      - name: Install Helm
+        uses: azure/setup-helm@v1
+        with:
+          version: v3.4.0
+
+      - name: Run chart-releaser
+        uses: helm/chart-releaser-action@v1.2.1
+        with:
+          charts_dir: chart
+        env:
+          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
