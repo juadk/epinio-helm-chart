@@ -3,6 +3,25 @@ entries:
   epinio:
   - apiVersion: v1
     appVersion: v0.3.0
+    created: "2021-12-16T10:24:37.949475412Z"
+    description: The Epinio component (without dependencies)
+    digest: 4326fe08e06cc6c1695e5eb7118b3bb34fe47fe41a823e39bd992dcc21cb8f97
+    home: https://github.com/epinio/epinio
+    icon: https://raw.githubusercontent.com/epinio/helm-charts/main/assets/epinio.png
+    keywords:
+    - epinio
+    - paas
+    maintainers:
+    - email: team@epinio.io
+      name: SUSE
+    name: epinio
+    sources:
+    - https://github.com/epinio/epinio
+    urls:
+    - https://github.com/juadk/epinio-helm-chart/releases/download/epinio-0.2.2/epinio-0.2.2.tgz
+    version: 0.2.2
+  - apiVersion: v1
+    appVersion: v0.3.0
     created: "2021-12-16T08:25:20.125798121Z"
     description: The Epinio component (without dependencies)
     digest: a7a75cfac8725b510f1dc69587a4cdc9b0bae0cf18af4c2f0b3897fcdebd22a1
@@ -645,6 +664,26 @@ entries:
   epinio-installer:
   - apiVersion: v1
     appVersion: v0.0.1-15
+    created: "2021-12-16T10:24:38.13414029Z"
+    description: Deploys Epinio and dependencies automatically
+    digest: 50d3c5991a9f7f9538236150a720ff292767bffbe80912481c422b7f3d7ea12e
+    home: https://github.com/epinio/epinio
+    icon: https://raw.githubusercontent.com/epinio/helm-charts/main/assets/epinio.png
+    keywords:
+    - epinio
+    - paas
+    maintainers:
+    - email: team@epinio.io
+      name: epinio
+      url: https://epinio.io/
+    name: epinio-installer
+    sources:
+    - https://github.com/epinio/helm-charts
+    urls:
+    - https://github.com/juadk/epinio-helm-chart/releases/download/epinio-installer-0.3.4/epinio-installer-0.3.4.tgz
+    version: 0.3.4
+  - apiVersion: v1
+    appVersion: v0.0.1-15
     created: "2021-12-16T08:25:20.240375242Z"
     description: Deploys Epinio and dependencies automatically
     digest: 261db2b2a51944665742893ad40ff2c5ff4e5a95545d96c08145bdfb9478a2a2
@@ -683,4 +722,4 @@ entries:
     urls:
     - https://github.com/juadk/epinio-helm-chart/releases/download/epinio-installer-0.3.0/epinio-installer-0.3.0.tgz
     version: 0.3.0
-generated: "2021-12-16T08:25:20.240728444Z"
+generated: "2021-12-16T10:24:38.134524194Z"
