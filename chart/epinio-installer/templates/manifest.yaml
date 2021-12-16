@@ -1,3 +1,4 @@
+{{ if not .Values.manifestSecret }}
 apiVersion: v1
 kind: Secret
 metadata:
@@ -133,9 +134,9 @@ stringData:
             value: "{{ .Values.email }}"
           - name: "systemDomain"
             value: "{{ .Values.domain }}"
-          - name: "user"
+          - name: "api.username"
             value: {{ default "admin" .Values.user | quote }}
-          - name: "password"
+          - name: "api.password"
             value: {{ default $password .Values.password | quote }}
           - name:  "certManagerNamespace"
             value: cert-manager
@@ -143,10 +144,12 @@ stringData:
             value: "{{ $sessionKey }}"
           - name: "server.accessControlAllowOrigin"
             value: {{ default "*" .Values.accessControlAllowOrigin | quote }}
+          - name: "server.tlsIssuer"
+            value: "{{ .Values.tlsIssuer }}"
           - name: "server.timeoutMultiplier"
-            value: "1"
+            value: {{ .Values.server.timeoutMultiplier }}
           - name: "server.traceLevel"
-            value: "1"
+            value: "{{ .Values.server.traceLevel }}"
 
           - name: "s3.endpoint"
             value: {{ default "minio.minio-epinio.svc.cluster.local" .Values.s3Endpoint | quote }}
@@ -163,18 +166,22 @@ stringData:
 
           - name: "registry.url"
             value: {{ default (print "epinio-registry." .Values.domain)  .Values.externalRegistryURL | quote }}
+          {{- if (not .Values.externalRegistryURL) }}
           - name: "registry.localhostURL"
             value: "127.0.0.1:30500"
+          {{- end }}
           - name: "registry.username"
             value: "{{ $registryUsername }}"
           - name: "registry.password"
             value: "{{ $registryPassword }}"
           - name: "registry.namespace"
             value: {{ default "apps" .Values.externalRegistryNamespace | quote }}
+          {{- if not .Values.externalRegistryURL }}
           - name: "registry.certificateSecret"
             value: "epinio-registry-tls"
           - name: "registry.certificateSecretNamespace"
             value: "epinio-registry"
+          {{- end }}
           - name: "server.forceKubeInternalRegistryTLS"
             value: {{ default "false" .Values.forceKubeInternalRegistryTLS | quote }}
         preDeploy:
@@ -202,8 +209,9 @@ stringData:
             type: annotation
 
       - id: registry
-        # needs: namespace-registry
+        {{- if not .Values.skipCertManager }}
         needs: cert-manager
+        {{- end }}
         namespace: epinio-registry
         type: helm
         source:
@@ -265,3 +273,4 @@ stringData:
             selector: "statefulset.kubernetes.io/pod-name=tenant1-ss-0-0"
             namespace: minio-epinio
       {{ end }}
+{{ end }}
