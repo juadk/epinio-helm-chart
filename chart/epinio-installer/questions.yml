@@ -6,9 +6,23 @@ questions:
   type: strings
   required: false
   group: "General settings"
+- variable: useCustomTlsIssuer
+  label: Use custom TLS issuer
+  default: "false"
+  description: "Use custom TLS issuer"
+  type: boolean
+  group: "General settings"
+  show_subquestion_if: true
+  subquestions:
+  - variable: customTlsIssuer
+    label: Custom TLS issuer
+    description: "Name of the custom cluster issuer to use"
+    type: strings
+    required: false
 - variable: tlsIssuer
+  show_if: "useCustomTlsIssuer=false"
   label: TLS issuer
-  description: "Name of the cluster issue to use"
+  description: "Name of the provided cluster issuer to use"
   default: "epinio-ca"
   type: enum
   required: false
