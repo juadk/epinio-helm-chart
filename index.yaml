@@ -2,6 +2,25 @@ apiVersion: v1
 entries:
   epinio:
   - apiVersion: v1
+    appVersion: v0.3.1
+    created: "2021-12-20T10:13:22.695079362Z"
+    description: The Epinio component (without dependencies)
+    digest: f1813a89dd4aece773410293830d567fa69f101fc4ef3197bbfc6d517ad425e2
+    home: https://github.com/epinio/epinio
+    icon: https://raw.githubusercontent.com/epinio/helm-charts/main/assets/epinio.png
+    keywords:
+    - epinio
+    - paas
+    maintainers:
+    - email: team@epinio.io
+      name: SUSE
+    name: epinio
+    sources:
+    - https://github.com/epinio/epinio
+    urls:
+    - https://github.com/juadk/epinio-helm-chart/releases/download/epinio-0.2.4/epinio-0.2.4.tgz
+    version: 0.2.4
+  - apiVersion: v1
     appVersion: v0.3.0
     created: "2021-12-16T10:52:22.500212674Z"
     description: The Epinio component (without dependencies)
@@ -683,6 +702,26 @@ entries:
   epinio-installer:
   - apiVersion: v1
     appVersion: v0.0.1-16
+    created: "2021-12-20T10:13:22.806359557Z"
+    description: Deploys Epinio and dependencies automatically
+    digest: e7d6c602be8c84f5a20c05ac7a515b62786c756d68895dc82c1235a023c4bad6
+    home: https://github.com/epinio/epinio
+    icon: https://raw.githubusercontent.com/epinio/helm-charts/main/assets/epinio.png
+    keywords:
+    - epinio
+    - paas
+    maintainers:
+    - email: team@epinio.io
+      name: epinio
+      url: https://epinio.io/
+    name: epinio-installer
+    sources:
+    - https://github.com/epinio/helm-charts
+    urls:
+    - https://github.com/juadk/epinio-helm-chart/releases/download/epinio-installer-0.3.11/epinio-installer-0.3.11.tgz
+    version: 0.3.11
+  - apiVersion: v1
+    appVersion: v0.0.1-16
     created: "2021-12-17T15:24:05.345667816Z"
     description: Deploys Epinio and dependencies automatically
     digest: 6ea700380d5c2fdfd60ff1b75711ec4f53890369839edc575f0d449bb2eb998d
@@ -861,4 +900,4 @@ entries:
     urls:
     - https://github.com/juadk/epinio-helm-chart/releases/download/epinio-installer-0.3.0/epinio-installer-0.3.0.tgz
     version: 0.3.0
-generated: "2021-12-17T15:24:05.345910318Z"
+generated: "2021-12-20T10:13:22.807056075Z"
