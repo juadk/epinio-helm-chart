@@ -5,6 +5,7 @@ on:
     inputs:
       chart:
         description: "Chart you want releasing"
+        type: choice
         options:
           - container-registry
           - epinio
