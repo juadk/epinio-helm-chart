@@ -2,6 +2,15 @@ name: Release Charts
 
 on:
   workflow_dispatch:
+    inputs:
+      chart:
+        description: "Chart you want releasing"
+        options:
+          - container-registry
+          - epinio
+          - epinio-installer
+        required: true
+        default: ""
 
 jobs:
   release:
