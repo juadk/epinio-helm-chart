@@ -12,12 +12,6 @@ metadata:
   name: epinio-server
 rules:
 - apiGroups:
-  - "tekton.dev"
-  resources:
-  - pipelineruns
-  verbs:
-  - delete
-- apiGroups:
   - ""
   resources:
   - persistentvolumeclaims
@@ -41,6 +35,20 @@ rules:
   - get
   - update
   - delete
+- apiGroups:
+  - ""
+  resources:
+  - pods/exec
+  verbs:
+  - create
+  - get
+  - post
+- apiGroups:
+  - ""
+  resources:
+  - pods/portforward
+  verbs:
+  - get
 - apiGroups:
   - ""
   resources:
@@ -138,6 +146,7 @@ rules:
   - create
   - delete
   - patch
+  - update
 - apiGroups:
   - "metrics.k8s.io"
   resources:
@@ -164,22 +173,30 @@ kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: epinio-server
-  namespace: tekton-staging
+  namespace: epinio-staging
 rules:
 - apiGroups:
-  - tekton.dev
+  - batch
   resources:
-  - pipelineruns
+  - jobs
   verbs:
+  - get
   - create
+  - delete
   - list
+- apiGroups:
+  - ""
+  resources:
+  - configmaps
+  verbs:
+  - get
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: epinio-server-role
-  namespace: tekton-staging
+  namespace: epinio-staging
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
@@ -220,6 +237,9 @@ spec:
       name: epinio-server
     spec:
       serviceAccountName: epinio-server
+      volumes:
+      - name: tmp-volume
+        emptyDir: {}
       containers:
         - command: ["/epinio", "server"]
           args: ["--port", "80"]
@@ -231,14 +251,22 @@ spec:
             - name: SESSION_KEY
               value: "{{ .Values.server.sessionKey }}"
             - name: TLS_ISSUER
-              value: "{{ .Values.server.tlsIssuer }}"
+              value: "{{ .Values.global.tlsIssuer }}"
             - name: TRACE_LEVEL
               value: "{{ .Values.server.traceLevel }}"
-            {{- if .Values.registry.certificateSecret }}
-            - name: REGISTRY_CERTIFICATE_SECRET
-              value: "{{ .Values.registry.certificateSecret }}"
+            {{- if or .Values.s3.certificateSecret .Values.minio.enabled }}
+            - name: S3_CERTIFICATE_SECRET
+              value: {{ default "minio-tls" .Values.s3.certificateSecret }}
             {{- end }}
-          image: splatform/epinio-server:{{ .Chart.AppVersion }}
+            {{- if .Values.containerregistry.enabled }}
+            - name: REGISTRY_CERTIFICATE_SECRET
+              value: "epinio-registry-tls"
+            {{- end }}
+            {{- if .Values.ingress.ingressClassName }}
+            - name: INGRESS_CLASS_NAME
+              value: "{{ .Values.ingress.ingressClassName }}"
+            {{- end }}
+          image: "{{ template "registry-url" . }}{{ .Values.image.epinio.repository}}:{{ or .Values.image.epinio.tag .Chart.AppVersion }}"
           livenessProbe:
             httpGet:
               path: /ready
@@ -246,6 +274,9 @@ spec:
           name: epinio-server
           ports:
             - containerPort: 80
+          volumeMounts:
+          - name: tmp-volume
+            mountPath: /tmp
           readinessProbe:
             httpGet:
               path: /ready

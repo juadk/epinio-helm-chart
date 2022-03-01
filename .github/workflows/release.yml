@@ -2,16 +2,6 @@ name: Release Charts
 
 on:
   workflow_dispatch:
-    inputs:
-      chart:
-        description: "Chart you want releasing"
-        type: choice
-        options:
-          - container-registry
-          - epinio
-          - epinio-installer
-        required: true
-        default: ""
 
 jobs:
   release:
@@ -27,14 +17,20 @@ jobs:
           git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
       - name: Install Helm
-        uses: azure/setup-helm@v1
+        uses: azure/setup-helm@v2.0
         with:
           version: v3.4.0
 
+      - name: Add Helm dependency repos
+        run: |
+          helm repo add minio https://charts.min.io/
+          helm repo add appscode https://charts.appscode.com/stable/
+          helm repo update
+
       - name: Run chart-releaser
-        uses: helm/chart-releaser-action@v1.2.1
+        uses: helm/chart-releaser-action@v1.3.0
         with:
-          #charts_dir: chart/${{ github.event.inputs.chart }}/
-          charts_dir: chart/epinio-installer
+          charts_dir: chart
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          CR_SKIP_EXISTING: true
