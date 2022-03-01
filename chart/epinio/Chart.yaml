@@ -1,15 +1,28 @@
-apiVersion: v1
-name: epinio
-version: "0.2.5"
-appVersion: "v0.3.2"
-description: The Epinio component (without dependencies)
+apiVersion: v2
+appVersion: v0.5.0
+dependencies:
+- condition: minio.enabled, global.minio.enabled
+  name: minio
+  repository: https://charts.min.io/
+  tags:
+  - minio
+  version: 3.5.2
+- condition: kubed.enabled, global.kubed.enabled
+  name: kubed
+  repository: https://charts.appscode.com/stable/
+  tags:
+  - kubed
+  version: 0.13.1
+description: The official way to install Epinio
 home: https://github.com/epinio/epinio
 icon: https://raw.githubusercontent.com/epinio/helm-charts/main/assets/epinio.png
 keywords:
 - epinio
 - paas
+maintainers:
+- email: team@epinio.io
+  name: SUSE
+name: epinio
 sources:
 - https://github.com/epinio/epinio
-maintainers:
-- name: SUSE
-  email: team@epinio.io
+version: 0.5.0

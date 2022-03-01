@@ -3,6 +3,58 @@
   "title": "Values",
   "type": "object",
   "properties": {
+    "registryURL": {
+      "type": "string"
+    },
+    "image": {
+      "type": "object",
+      "properties": {
+        "epinio": {
+          "type": "object",
+          "properties": {
+            "repository": {
+              "type": "string"
+            },
+            "tag": {
+              "type": "string"
+            }
+          }
+        },
+        "bash": {
+          "type": "object",
+          "properties": {
+            "repository": {
+              "type": "string"
+            },
+            "tag": {
+              "type": "string"
+            }
+          }
+        },
+        "awscli": {
+          "type": "object",
+          "properties": {
+            "repository": {
+              "type": "string"
+            },
+            "tag": {
+              "type": "string"
+            }
+          }
+        },
+        "kubectl": {
+          "type": "object",
+          "properties": {
+            "repository": {
+              "type": "string"
+            },
+            "tag": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
     "server": {
       "description": "server configuration",
       "type": "object",
@@ -16,15 +68,20 @@
         "sessionKey": {
           "type": "string"
         },
-        "tlsIssuer": {
-          "type": "string"
-        },
         "traceLevel": {
           "type": "integer"
         },
         "registryCertificateSecret": {
           "type": "string"
+        },
+        "ingressClassName": {
+          "type": "string"
         }
+      }
+    },
+    "ingress": {
+      "ingressClassName": {
+        "type": "string"
       }
     },
     "s3": {
@@ -46,6 +103,9 @@
         "secretAccessKey": {
           "type": "string"
         },
+        "certificateSecret": {
+          "type": "string"
+        },
         "useSSL": {
           "type": "boolean"
         }
@@ -64,9 +124,6 @@
         "url": {
           "type": "string"
         },
-        "localhostURL": {
-          "type": "string"
-        },
         "username": {
           "type": "string"
         },
@@ -74,9 +131,6 @@
           "type": "string"
         },
         "namespace": {
-          "type": "string"
-        },
-        "certificateSecret": {
           "type": "string"
         }
       },
@@ -102,15 +156,28 @@
       "description": "the namespace there cert-manager controller is deployed",
       "type": "string"
     },
-    "systemDomain": {
-      "description": "the system domain that will be used to access the Epinio API",
+    "domain": {
+      "description": "the domain that will be used to access the Epinio API",
       "type": "string"
     }
   },
   "required": [
     "certManagerNamespace",
     "s3",
-    "registry",
-    "systemDomain"
-  ]
+    "registry"
+  ],
+  "global": {
+    "type": "object",
+    "properties": {
+      "domain": {
+        "type": "string"
+      },
+      "tlsIssuer": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "domain"
+    ]
+  }
 }

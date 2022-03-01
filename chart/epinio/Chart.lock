@@ -1,0 +1,9 @@
+dependencies:
+- name: minio
+  repository: https://charts.min.io/
+  version: 3.5.2
+- name: kubed
+  repository: https://charts.appscode.com/stable/
+  version: v0.13.1
+digest: sha256:f33eaea4803e705d0af7a83496b609d4e1aea4046b017420faa3970dbc6eef8a
+generated: "2022-02-17T11:05:38.952609555Z"

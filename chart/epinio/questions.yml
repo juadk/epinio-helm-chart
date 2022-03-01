@@ -6,6 +6,25 @@ questions:
   type: strings
   required: false
   group: "General settings"
+- variable: certManagerNamespace
+  label: Cert-manager namespace
+  description: "Namespace where cert-manager is installed in"
+  default: "cert-manager"
+  type: strings
+  required: false
+  group: "Advanced settings"
+- variable: ingress.ingressClassName
+  label: Ingress class name for the server
+  description: "Set a class name to select the ingress controller you want to use for the server"
+  default: ""
+  type: strings
+  group: "Advanced settings"
+- variable: server.ingressClassName
+  label: Ingress class name for apps
+  description: "Set a class name to select the ingress controller you want to use for your apps"
+  default: ""
+  type: strings
+  group: "Advanced settings"
 - variable: useCustomTlsIssuer
   label: Use your own TLS issuer
   default: "false"
@@ -19,7 +38,7 @@ questions:
     description: "Name of the cluster issuer to use"
     type: strings
     required: false
-- variable: tlsIssuer
+- variable: global.tlsIssuer
   show_if: "useCustomTlsIssuer=false"
   label: TLS issuer
   description: "Name of the predefined cluster issuer to use"
@@ -31,51 +50,48 @@ questions:
     - "epinio-ca"
     - "selfsigned-issuer"
     - "letsencrypt-production"
-- variable: user
+- variable: api.username
   label: API username
   description: "The user name for authenticating all API requests"
   type: strings
   required: false
   group: "General settings"
-- variable: password
+- variable: api.password
   label: API password
   description: "The password for authenticating all API requests"
   type: password
   required: false
   group: "General settings"
-- variable: domain
+- variable: global.domain
   label: Domain
   description: "Domain for the application"
   type: strings
   required: true
   group: "General settings"
-- variable: accessControlAllowOrigin
+- variable: server.accessControlAllowOrigin
   label: Access control allow origin
   description: "Domain which serves the Rancher UI (to access the API)"
   type: strings
   required: false
   group: "General settings"
-- variable: forceKubeInternalRegistryTLS
-  label: Force TLS for internal registry
-  required: false
+- variable: kubed.enabled
+  label: Install kubed
+  description: "Deploy kubed or skip it if you get it installed already"
   type: boolean
-  group: "General settings"
-- variable: skipCertManager
-  show_if: "useCustomTlsIssuer=false"
-  label: Use existing CertManager installation
-  required: false
+  default: true
+  group: "Subcharts"
+- variable: minio.enabled
+  label: Install minio
+  description: Install minio storage to store the application source code
   type: boolean
-  group: "General settings"
-- variable: skipLinkerd
-  label: Use existing Linkerd installation
-  required: false
+  default: true
+  group: "Subcharts"
+- variable: containerregistry.enabled
+  label: Install container registry
+  description: Container registry to store your application image
   type: boolean
-  group: "General settings"
-- variable: skipTraefik
-  label: Use existing ingress controller
-  required: false
-  type: boolean
-  group: "General settings"
+  default: true
+  group: "Subcharts"
 - variable: useExternalRegistry
   default: "false"
   description: "Use an external registry"
@@ -84,22 +100,22 @@ questions:
   show_subquestion_if: true
   group: "External registry"
   subquestions:
-  - variable: externalRegistryURL
+  - variable: global.registryURL
     label: External registry url
     description: "URL of your external registry"
     type: strings
     required: false
-  - variable: externalRegistryUsername
+  - variable: global.registryUsername
     label: External registry username
     description: "Username to authenticate to the external registry"
     type: strings
     required: false
-  - variable: externalRegistryPassword
+  - variable: global.registryPassword
     label: External registry password
     description: "Password to authenticate to the external registry"
     type: password
     required: false
-  - variable: externalRegistryNamespace
+  - variable: global.registryNamespace
     label: External registry namespace
     description: "Namespace of the external registry where you have push access"
     type: strings
@@ -112,46 +128,47 @@ questions:
   show_subquestion_if: true
   group: "External S3 storage"
   subquestions:
-  - variable: s3Endpoint
-    label: S3 Endpoint
+  - variable: s3.endpoint
+    label: S3 endpoint
     description: "Endpoint of your S3 storage"
     type: strings
     required: false
-  - variable: s3AccessKeyId
+  - variable: s3.accessKeyID
     label: S3 access key id
     description: "Access key id to authenticate to your S3 storage"
     type: strings
     required: false
-  - variable: s3SecretAccessKey
+  - variable: s3.secretAccessKey
     label: S3 access key secret
     description: "Secret access key to authenticate to your S3 storage"
-    type: strings
+    type: password
     required: false
-  - variable: s3Bucket
-    label: S3 Bucket
+  - variable: s3.bucket
+    label: S3 bucket
     description: "Bucket of your S3 storage"
     type: strings
     required: false
-  - variable: s3Location
-    label: S3 location
+  - variable: s3.region
+    label: S3 region
     description: "Region of your S3 storage"
     type: strings
     required: false
-  - variable: s3UseSSL
+  - variable: s3.useSSL
+    default: true
     label: S3 use SSL
     type: boolean
     required: false
-- variable: traceLevel
-  label: Installer Log Level
-  required: false
-  type: strings
-  default: "2"
-  group: "Debugging"
+  - variable: s3.certificateSecret
+    label: Self signed certificate for S3
+    description: Set it to an existing secret if s3 is using a self signed certificate
+    type: strings
+    required: false
+    default: ""
 - variable: server.traceLevel
   label: Epinio API Log Level
   required: false
   type: strings
-  default: "2"
+  default: "0"
   group: "Debugging"
 - variable: server.timeoutMultiplier
   label: Timeout Multiplier
