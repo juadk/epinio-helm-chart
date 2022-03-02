@@ -25,4 +25,4 @@ maintainers:
 name: epinio
 sources:
 - https://github.com/epinio/epinio
-version: 0.5.1
+version: 0.5.2

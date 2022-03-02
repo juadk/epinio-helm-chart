@@ -72,5 +72,107 @@ questions:
   label: Access control allow origin
   description: "Domain which serves the Rancher UI (to access the API)"
   type: strings
-  required: true
+  required: false
   group: "General settings"
+- variable: kubed.enabled
+  label: Install kubed
+  description: "Deploy kubed or skip it if you get it installed already"
+  type: boolean
+  default: true
+  group: "Subcharts"
+- variable: minio.enabled
+  label: Install minio
+  description: Install minio storage to store the application source code
+  type: boolean
+  default: true
+  group: "Subcharts"
+- variable: containerregistry.enabled
+  label: Install container registry
+  description: Container registry to store your application image
+  type: boolean
+  default: true
+  group: "Subcharts"
+- variable: useExternalRegistry
+  default: "false"
+  description: "Use an external registry"
+  label: Use an external registry
+  type: boolean
+  show_subquestion_if: true
+  group: "External registry"
+  subquestions:
+  - variable: registry.url
+    label: External registry url
+    description: "URL of your external registry"
+    type: strings
+    required: false
+  - variable: registry.username
+    label: External registry username
+    description: "Username to authenticate to the external registry"
+    type: strings
+    required: false
+  - variable: registry.password
+    label: External registry password
+    description: "Password to authenticate to the external registry"
+    type: password
+    required: false
+  - variable: registry.namespace
+    label: External registry namespace
+    description: "Namespace of the external registry where you have push access"
+    type: strings
+    required: false
+- variable: useS3Storage
+  default: "false"
+  label: Use an external s3 storage
+  description: "Use an external s3 storage"
+  type: boolean
+  show_subquestion_if: true
+  group: "External S3 storage"
+  subquestions:
+  - variable: s3.endpoint
+    label: S3 endpoint
+    description: "Endpoint of your S3 storage"
+    type: strings
+    required: false
+  - variable: s3.accessKeyID
+    label: S3 access key id
+    description: "Access key id to authenticate to your S3 storage"
+    type: strings
+    required: false
+  - variable: s3.secretAccessKey
+    label: S3 access key secret
+    description: "Secret access key to authenticate to your S3 storage"
+    type: password
+    required: false
+  - variable: s3.bucket
+    label: S3 bucket
+    description: "Bucket of your S3 storage"
+    type: strings
+    required: false
+  - variable: s3.region
+    label: S3 region
+    description: "Region of your S3 storage"
+    type: strings
+    required: false
+  - variable: s3.useSSL
+    default: true
+    label: S3 use SSL
+    type: boolean
+    required: false
+  - variable: s3.certificateSecret
+    label: Self signed certificate for S3
+    description: Set it to an existing secret if s3 is using a self signed certificate
+    type: strings
+    required: false
+    default: ""
+- variable: server.traceLevel
+  label: Epinio API Log Level
+  required: false
+  type: strings
+  default: "0"
+  group: "Debugging"
+- variable: server.timeoutMultiplier
+  label: Timeout Multiplier
+  required: false
+  type: strings
+  default: "1"
+  group: "Debugging"
