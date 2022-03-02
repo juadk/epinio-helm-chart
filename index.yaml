@@ -3,6 +3,38 @@ entries:
   epinio:
   - apiVersion: v2
     appVersion: v0.5.0
+    created: "2022-03-02T07:51:51.193232779Z"
+    dependencies:
+    - condition: minio.enabled, global.minio.enabled
+      name: minio
+      repository: https://charts.min.io/
+      tags:
+      - minio
+      version: 3.5.2
+    - condition: kubed.enabled, global.kubed.enabled
+      name: kubed
+      repository: https://charts.appscode.com/stable/
+      tags:
+      - kubed
+      version: 0.13.1
+    description: The official way to install Epinio
+    digest: 32939e09ecc08c7e9b0e44f0aac2ac5f49399aa1b23930eea973b9a86824bb3d
+    home: https://github.com/epinio/epinio
+    icon: https://raw.githubusercontent.com/epinio/helm-charts/main/assets/epinio.png
+    keywords:
+    - epinio
+    - paas
+    maintainers:
+    - email: team@epinio.io
+      name: SUSE
+    name: epinio
+    sources:
+    - https://github.com/epinio/epinio
+    urls:
+    - https://github.com/juadk/epinio-helm-chart/releases/download/epinio-0.5.1/epinio-0.5.1.tgz
+    version: 0.5.1
+  - apiVersion: v2
+    appVersion: v0.5.0
     created: "2022-03-01T14:42:11.732175635Z"
     dependencies:
     - condition: minio.enabled, global.minio.enabled
@@ -984,4 +1016,4 @@ entries:
     urls:
     - https://github.com/juadk/epinio-helm-chart/releases/download/epinio-ui-0.0.1/epinio-ui-0.0.1.tgz
     version: 0.0.1
-generated: "2022-03-01T14:42:11.955514229Z"
+generated: "2022-03-02T07:51:51.516493431Z"
