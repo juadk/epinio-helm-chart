@@ -80,19 +80,19 @@ questions:
   type: boolean
   default: true
   group: "Advanced settings"
-- variable: useExternalRegistry
-  default: "false"
-  description: "Use an external registry"
-  label: Use an external registry
+- variable: containerregistry.enabled
+  default: "true"
+  description: "Disable local container registry to configure an external registry."
+  label: Install local container registry
   type: boolean
-  show_subquestion_if: true
+  show_subquestion_if: false
   group: "External registry"
   subquestions:
-  - variable: containerregistry.enabled
-    label: Install container registry
-    description: Container registry to store your application image
-    type: boolean
-    default: true
+    #  - variable: containerregistry.enabled
+    #    label: Install container registry
+    #    description: Container registry to store your application image, disabled it if you use an external registry.
+    #    type: boolean
+    #    default: true
   - variable: registry.url
     label: External registry url
     description: "URL of your external registry"
@@ -113,19 +113,19 @@ questions:
     description: "Namespace of the external registry where you have push access"
     type: strings
     required: false
-- variable: useS3Storage
-  default: "false"
-  label: Use an external s3 storage
-  description: "Use an external s3 storage"
+- variable: minio.enabled
+  default: true
+  label: Install Minio
+  description: "Disable Minio to configure an external s3 storage."
   type: boolean
-  show_subquestion_if: true
+  show_subquestion_if: false
   group: "External S3 storage"
   subquestions:
-  - variable: minio.enabled
-    label: Install minio
-    description: Install minio storage to store the application source code
-    type: boolean
-    default: true
+    #  - variable: minio.enabled
+    #    label: Install minio
+    #    description: Install minio storage to store the application source code, disabled it if you use an external s3 storage.
+    #    type: boolean
+    #    default: true
   - variable: s3.endpoint
     label: S3 endpoint
     description: "Endpoint of your S3 storage"

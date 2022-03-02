@@ -1,4 +1,5 @@
 {{- if .Values.containerregistry.enabled }}
+#{{- if .Values.containerregistry.enabled || not .Values.useExternalRegistry.enabled}}
 ---
 apiVersion: v1
 kind: Secret
