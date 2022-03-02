@@ -79,19 +79,7 @@ questions:
   description: "Deploy kubed or skip it if you get it installed already"
   type: boolean
   default: true
-  group: "Subcharts"
-- variable: minio.enabled
-  label: Install minio
-  description: Install minio storage to store the application source code
-  type: boolean
-  default: true
-  group: "Subcharts"
-- variable: containerregistry.enabled
-  label: Install container registry
-  description: Container registry to store your application image
-  type: boolean
-  default: true
-  group: "Subcharts"
+  group: "Advanced settings"
 - variable: useExternalRegistry
   default: "false"
   description: "Use an external registry"
@@ -100,6 +88,11 @@ questions:
   show_subquestion_if: true
   group: "External registry"
   subquestions:
+  - variable: containerregistry.enabled
+    label: Install container registry
+    description: Container registry to store your application image
+    type: boolean
+    default: true
   - variable: registry.url
     label: External registry url
     description: "URL of your external registry"
@@ -128,6 +121,11 @@ questions:
   show_subquestion_if: true
   group: "External S3 storage"
   subquestions:
+  - variable: minio.enabled
+    label: Install minio
+    description: Install minio storage to store the application source code
+    type: boolean
+    default: true
   - variable: s3.endpoint
     label: S3 endpoint
     description: "Endpoint of your S3 storage"
