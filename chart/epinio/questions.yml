@@ -72,5 +72,5 @@ questions:
   label: Access control allow origin
   description: "Domain which serves the Rancher UI (to access the API)"
   type: strings
-  required: false
+  required: true
   group: "General settings"
