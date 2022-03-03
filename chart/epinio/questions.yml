@@ -88,27 +88,22 @@ questions:
   show_subquestion_if: false
   group: "External registry"
   subquestions:
-    #  - variable: containerregistry.enabled
-    #    label: Install container registry
-    #    description: Container registry to store your application image, disabled it if you use an external registry.
-    #    type: boolean
-    #    default: true
-  - variable: registry.url
+  - variable: global.registryURL
     label: External registry url
     description: "URL of your external registry"
     type: strings
     required: false
-  - variable: registry.username
+  - variable: global.registryUsername
     label: External registry username
     description: "Username to authenticate to the external registry"
     type: strings
     required: false
-  - variable: registry.password
+  - variable: global.registryPassword
     label: External registry password
     description: "Password to authenticate to the external registry"
     type: password
     required: false
-  - variable: registry.namespace
+  - variable: global.registryNamespace
     label: External registry namespace
     description: "Namespace of the external registry where you have push access"
     type: strings
@@ -121,11 +116,6 @@ questions:
   show_subquestion_if: false
   group: "External S3 storage"
   subquestions:
-    #  - variable: minio.enabled
-    #    label: Install minio
-    #    description: Install minio storage to store the application source code, disabled it if you use an external s3 storage.
-    #    type: boolean
-    #    default: true
   - variable: s3.endpoint
     label: S3 endpoint
     description: "Endpoint of your S3 storage"
