@@ -2,27 +2,23 @@ questions:
 - variable: email
   label: Email
   description: "Email to use for getting notifications about your certificates"
-  default: "epinio@suse.com"
   type: strings
   required: false
   group: "General settings"
 - variable: certManagerNamespace
   label: Cert-manager namespace
   description: "Namespace where cert-manager is installed in"
-  default: "cert-manager"
   type: strings
   required: false
   group: "Advanced settings"
 - variable: ingress.ingressClassName
   label: Ingress class name for the server
   description: "Set a class name to select the ingress controller you want to use for the server"
-  default: ""
   type: strings
   group: "Advanced settings"
 - variable: server.ingressClassName
   label: Ingress class name for apps
   description: "Set a class name to select the ingress controller you want to use for your apps"
-  default: ""
   type: strings
   group: "Advanced settings"
 - variable: useCustomTlsIssuer
@@ -42,7 +38,6 @@ questions:
   show_if: "useCustomTlsIssuer=false"
   label: TLS issuer
   description: "Name of the predefined cluster issuer to use"
-  default: "epinio-ca"
   type: enum
   required: false
   group: "General settings"
@@ -78,10 +73,8 @@ questions:
   label: Install kubed
   description: "Deploy kubed or skip it if you get it installed already"
   type: boolean
-  default: true
   group: "Advanced settings"
 - variable: containerregistry.enabled
-  default: "true"
   description: "Disable local container registry to configure an external registry."
   label: Install local container registry
   type: boolean
@@ -109,7 +102,6 @@ questions:
     type: strings
     required: false
 - variable: minio.enabled
-  default: true
   label: Install Minio
   description: "Disable Minio to configure an external s3 storage."
   type: boolean
@@ -142,7 +134,6 @@ questions:
     type: strings
     required: false
   - variable: s3.useSSL
-    default: true
     label: S3 use SSL
     type: boolean
     required: false
@@ -151,16 +142,13 @@ questions:
     description: Set it to an existing secret if s3 is using a self signed certificate
     type: strings
     required: false
-    default: ""
 - variable: server.traceLevel
   label: Epinio API Log Level
   required: false
   type: strings
-  default: "0"
   group: "Debugging"
 - variable: server.timeoutMultiplier
   label: Timeout Multiplier
   required: false
   type: strings
-  default: "1"
   group: "Debugging"
